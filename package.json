@@ -1,9 +1,9 @@
 {
-  "name": "nlp-sentiment-analysis",
+  "name": "treetop-test",
   "version": "0.1.0",
   "private": true,
   "author": "liangrongjia",
-  "description": "The frontend of NLPSentimentAnalysis",
+  "description": "A software testing tool.",
   "homepage": ".",
   "main": "main.js",
   "icon": "./public/favicon.png",
@@ -21,10 +21,10 @@
   },
   "scripts": {
     "react-start": "react-scripts start",
+    "electron-start": "electron .",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "electron-start": "electron .",
     "package": "electron-packager ./ nlp-sentiment-analysis --out ./out --electron-version 12.0.2 --overwrite"
   },
   "eslintConfig": {
