@@ -1,0 +1,9 @@
+.App {
+  display: flex;
+  flex-direction: column;
+}
+
+.tab-container {
+  overflow: auto;
+  z-index: 0;
+}

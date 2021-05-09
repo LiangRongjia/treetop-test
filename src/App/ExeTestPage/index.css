@@ -1,0 +1,13 @@
+.font-size-12px {
+    font-size: 12px;
+}
+.exe-test-page-control-bar{
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+}
+.exe-test-page-control-bar *{
+    font-size: 12px;
+    width: max-content;
+    margin: 0 12px;
+}

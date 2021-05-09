@@ -1,0 +1,91 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+body {
+  color: #262626;
+  background-color: #f7f7f7 !important;
+  overflow: overlay;
+}
+
+h1 {
+  font-size: 20px;
+  font-weight: 600;
+  padding: 32px 0 16px 0;
+}
+
+h2 {
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 0;
+}
+
+p {
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+
+.ms-button.primary {
+  color: #FFFFFF;
+  background-color: #0078D4;
+}
+
+.ms-button.primary:hover {
+  background-color: #006CBE
+}
+
+.ms-button {
+  /* copy from microsoft edge */
+  cursor: pointer;
+  display: flex;
+  overflow: hidden;
+  max-width: 374px;
+  box-sizing: border-box;
+  transition: all 0.1s ease-in-out;
+  line-height: 1;
+  font-family: inherit;
+  align-items: center;
+  white-space: nowrap;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 14px;
+  min-width: 32px;
+  width: max-content;
+  padding: 0 8px;
+  height: 32px;
+  border: 2px solid transparent;
+  border-radius: 2px;
+  color: #262626;
+  fill: #262626;
+  background: #E5E5E5;
+}
+
+.ms-button:hover {
+  /* copy from microsoft edge */
+  background: #DDDDDD;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: lightgray;
+}
+
+::-webkit-scrollbar-corner {
+  background-color: transparent;
+}

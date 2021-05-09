@@ -1,0 +1,62 @@
+nav {
+    position: sticky;
+    top: 30px;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    padding: 8px 0;
+    background-color: #f7f7f7;
+    user-select: none;
+    font-size: 12px;
+}
+
+nav>ul {
+    grid-column: 1/2;
+    grid-row: 2/3;
+    display: flex;
+    padding: 4px;
+    background-color: #efefef;
+    border-radius: 8px;
+    box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-bottom: 0;
+}
+
+nav>ul::before {
+    content: "";
+    position: absolute;
+    width: 160px;
+    height: 30px;
+    border-radius: 4px;
+    background-color: #fff;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2), inset 0 0 8px 0 rgba(0, 0, 0, 0.05);
+    transition: margin-left ease 250ms;
+}
+
+nav>ul[data-selected-index="1"]::before {
+    margin-left: 0;
+}
+
+nav>ul[data-selected-index="2"]::before {
+    margin-left: 160px;
+}
+
+nav>ul>li {
+    display: flex;
+    z-index: 1;
+    width: 160px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+nav>.exitButton {
+    position: fixed;
+    z-index: 10000;
+    top: 0;
+    right: 60px;
+}
