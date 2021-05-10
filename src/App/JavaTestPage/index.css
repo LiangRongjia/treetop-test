@@ -1,26 +1,21 @@
-.font-size-12px {
-    font-size: 12px;
+.java-test-page {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    overflow: auto;
 }
-.java-test-page{
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: auto 1fr;
-    height: stretch;
-}
-.java-test-page-control-bar{
+
+.java-test-page-control-bar {
     display: flex;
     align-items: center;
     font-size: 12px;
     margin: 16px 0;
-    grid-column: 1/2;
-    grid-row: 1/2;
 }
-.java-test-page-control-bar *{
+
+.java-test-page-control-bar * {
     font-size: 12px;
     width: max-content;
     margin: 0 12px;
-}
-.java-test-page-table{
-    grid-column: 1/2;
-    grid-row: 2/3;
 }

@@ -5,7 +5,7 @@ const { ipcMain } = require('electron')
 const exec = require('child_process').exec
 const fs = require('fs')
 
-const devMode = false
+const devMode = true
 const openDevTools = false
 
 // This method will be called when Electron has finished
@@ -71,16 +71,18 @@ function ipcMainHandleEvents(mainWindow) {
   ipcMain.on('exeRunTest', async (e, cases) => {
     for (let i in cases) {
       fs.writeFileSync(`${__dirname}/data/input.txt`, cases[i].input)
-      const execPromise = new Promise((resolve, reject) => {
-        exec(`${__dirname}/data/test.exe<${__dirname}/data/input.txt`, (error, stdout, stderr) => {
-          mainWindow.webContents.send('exeTestFinished', {
-            key: cases[i].key,
-            value: stdout
-          })
-          resolve()
-        })
+      await new Promise((resolve, reject) => {
+        exec(
+          `${__dirname}/data/test.exe<${__dirname}/data/input.txt`,
+          (error, stdout, stderr) => {
+            mainWindow.webContents.send('exeTestFinished', {
+              key: cases[i].key,
+              value: stdout
+            })
+            resolve()
+          }
+        )
       })
-      await execPromise
     }
   })
   const javaRunPath = `${__dirname}/data/`
@@ -94,16 +96,19 @@ function ipcMainHandleEvents(mainWindow) {
   ipcMain.on('javaRunTest', async (e, cases) => {
     for (let i in cases) {
       fs.writeFileSync(inputFile, cases[i].input)
-      const execPromise = new Promise((resolve, reject) => {
-        exec(`java main < input.txt`, { cwd: javaRunPath }, (error, stdout, stderr) => {
-          mainWindow.webContents.send('javaTestFinished', {
-            key: cases[i].key,
-            value: stdout
-          })
-          resolve()
-        })
+      await new Promise((resolve, reject) => {
+        exec(
+          `java main < input.txt`,
+          { cwd: javaRunPath },
+          (error, stdout, stderr) => {
+            mainWindow.webContents.send('javaTestFinished', {
+              key: cases[i].key,
+              value: stdout
+            })
+            resolve()
+          }
+        )
       })
-      await execPromise
     }
   })
 }

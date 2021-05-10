@@ -12,7 +12,7 @@
 
 import React, { useState } from 'react'
 import { TestCaseT } from '../interfacesAndTypes'
-import TestCasesTable from '../components/TestCasesTable'
+import TestCasesTable from '../components/TestCasesTable/index'
 import getMethods from './getMethods'
 import './index.css'
 
@@ -52,17 +52,16 @@ export default function JavaTestPage() {
 function listenMain(testCases: TestCaseT[], setTestCases: React.Dispatch<React.SetStateAction<TestCaseT[]>>) {
   ipcRenderer?.removeAllListeners('javaTestFinished')
   ipcRenderer?.on('javaTestFinished', async (event: Event, actualOutputs: { key: number, value: string }) => {
-    let newTestCases = JSON.parse(JSON.stringify(testCases)) as TestCaseT[]
-    for (let j in newTestCases) {
-      if (newTestCases[j].key === actualOutputs.key) {
+    for (let j in testCases) {
+      if (testCases[j].key === actualOutputs.key) {
         const actualOutput = await gbk2utf8(actualOutputs.value) // 对中文仍然无效
-        newTestCases[j].actualOutput = actualOutput
-        newTestCases[j].passed = newTestCases[j].expectOutput === actualOutput
-        newTestCases[j].tested = true
+        testCases[j].actualOutput = actualOutput
+        testCases[j].passed = testCases[j].expectOutput === actualOutput
+        testCases[j].tested = true
         break
       }
     }
-    setTestCases(newTestCases)
+    setTestCases([...testCases])
   })
 }
 /**

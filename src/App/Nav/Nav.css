@@ -27,7 +27,7 @@ nav>ul {
 nav>ul::before {
     content: "";
     position: absolute;
-    width: 160px;
+    width: 120px;
     height: 30px;
     border-radius: 4px;
     background-color: #fff;
@@ -40,13 +40,17 @@ nav>ul[data-selected-index="1"]::before {
 }
 
 nav>ul[data-selected-index="2"]::before {
-    margin-left: 160px;
+    margin-left: 120px;
+}
+
+nav>ul[data-selected-index="3"]::before {
+    margin-left: 240px;
 }
 
 nav>ul>li {
     display: flex;
     z-index: 1;
-    width: 160px;
+    width: 120px;
     height: 30px;
     justify-content: center;
     align-items: center;

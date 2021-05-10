@@ -23,8 +23,14 @@ export default function getMethods(testCases: TestCaseT[], setTestCases: React.D
      * @param key 
      */
     function testIt(key: number) {
-        const thisCase = testCases.filter(theCase => theCase.key === key)
-        runTest(thisCase)
+        // 清除测试状态
+        const newTestCases = JSON.parse(JSON.stringify(testCases)) as TestCaseT[]
+        newTestCases.forEach(thisCase => {
+            thisCase.key === key && (thisCase.tested = false)
+        })
+        setTestCases(newTestCases)
+        // 运行测试
+        runTest(testCases.filter(theCase => theCase.key === key))
     }
     /**
      * 测试用例文件更改时触发，读取测试用例文件

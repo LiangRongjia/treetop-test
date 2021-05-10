@@ -12,6 +12,9 @@ const tabs = [{
 }, {
   name: 'Java 测试',
   component: JavaTestPage
+}, {
+  name: 'JUnit 测试',
+  component: () => <div></div>
 }]
 
 const getEventsHandle = ({ setCurrentTab }: { setCurrentTab: React.Dispatch<React.SetStateAction<number>> }) => {

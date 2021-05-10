@@ -1,0 +1,18 @@
+.font-size-12px {
+    font-size: 12px;
+}
+
+.ant-table-header {
+    position: sticky;
+    z-index: 1;
+    top: -2px;
+    left: 0px;
+}
+
+.exe-java-test-page-table {
+    position: sticky;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+}

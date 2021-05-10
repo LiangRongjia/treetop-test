@@ -1,8 +1,8 @@
-import { TestCaseT } from '../interfacesAndTypes'
+import { TestCaseT } from '../../interfacesAndTypes'
 import { Table } from 'antd'
 import { CheckCircleTwoTone } from '@ant-design/icons'
 import { CloseCircleTwoTone } from '@ant-design/icons'
-
+import './index.css'
 
 export default function TestCasesTable({ data, testIt }: {
     data: TestCaseT[],
@@ -63,15 +63,16 @@ export default function TestCasesTable({ data, testIt }: {
                 测试
             </button>
         ),
+        className: 'font-size-12px',
         align: 'center' as 'center'
     }]
 
     return (
         <Table
-            className="exe-test-page-table"
+            className="exe-java-test-page-table"
             columns={columns}
             dataSource={data}
-            pagination={{ position: ['bottomCenter'] }}
+            pagination={false}
             bordered
             size="small"
             scroll={{ y: 'max-content' }} />
