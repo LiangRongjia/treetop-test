@@ -5,7 +5,7 @@ const { ipcMain } = require('electron')
 const exec = require('child_process').exec
 const fs = require('fs')
 
-const devMode = true
+const devMode = false
 const openDevTools = false
 
 // This method will be called when Electron has finished
@@ -67,15 +67,19 @@ function ipcMainHandleEvents(mainWindow) {
     fs.writeFile(`${__dirname}/data/test.exe`, Buffer.from(fileBinaryData), () => { })
   })
   // 测试
-  ipcMain.on('runTest', (e, cases) => {
+  ipcMain.on('runTest', async (e, cases) => {
     for (let i in cases) {
       fs.writeFileSync(`${__dirname}/data/input.txt`, cases[i].input)
-      exec(`${__dirname}/data/test.exe<${__dirname}/data/input.txt`, (error, stdout, stderr) => {
-        mainWindow.webContents.send('testFinished', {
-          key: cases[i].key,
-          value: stdout
+      const execPromise = new Promise((resolve, reject) => {
+        exec(`${__dirname}/data/test.exe<${__dirname}/data/input.txt`, (error, stdout, stderr) => {
+          mainWindow.webContents.send('testFinished', {
+            key: cases[i].key,
+            value: stdout
+          })
+          resolve()
         })
       })
+      await execPromise
     }
   })
 }

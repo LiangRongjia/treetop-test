@@ -1,5 +1,5 @@
 nav {
-    position: sticky;
+    position: fixed;
     top: 30px;
     left: 0;
     right: 0;

@@ -1,18 +1,19 @@
 import { Table } from 'antd'
 import { CheckCircleTwoTone } from '@ant-design/icons'
-import { Checkbox } from 'antd'
+import { CloseCircleTwoTone } from '@ant-design/icons'
 
 import { TestCaseT } from './index'
 
 export default function createTable(
     data: TestCaseT[],
-    testIt: (key: number) => void,
-    checkIt: (key: number) => void) {
+    testIt: (key: number) => void) {
+
     const columns = [{
         title: '序号',
         dataIndex: 'key',
         key: 'key',
-        className: 'font-size-12px'
+        className: 'font-size-12px',
+        align: 'center' as 'center'
     }, {
         title: '输入',
         dataIndex: 'input',
@@ -45,32 +46,30 @@ export default function createTable(
             item.tested
                 ? item.passed
                     ? < CheckCircleTwoTone twoToneColor="#52c41a" />
-                    : '未通过'
-                : '未测试'
+                    : <CloseCircleTwoTone twoToneColor="#ff0000" />
+                : <div></div>
         ),
-        className: 'font-size-12px'
-    }, {
-        title: '勾选',
-        key: 'checked',
-        render: (item: TestCaseT) => (
-            <Checkbox checked={item.checked} onChange={() => checkIt(item.key)}></Checkbox >
-        ),
-        className: 'font-size-12px'
+        className: 'font-size-12px',
+        align: 'center' as 'center'
     }, {
         title: '测试',
         key: 'test',
         render: (item: TestCaseT) => (
             <button
                 className="ms-button"
-                style={{ fontSize: "12px" }}
+                style={{ fontSize: "12px", display:'inline-block' }}
                 onClick={() => testIt(item.key)}>
                 测试
             </button>
         ),
+        align: 'center' as 'center'
     }]
 
-    return <Table
+    return <Table className="exe-test-page-table"
         columns={columns}
         dataSource={data}
-        size="small" />
+        pagination={{ position: ['bottomCenter'] }}
+        bordered
+        size="small"
+        scroll={{ y: 'max-content' }} />
 }

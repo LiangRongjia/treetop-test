@@ -4,6 +4,12 @@
 }
 
 .tab-container {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  margin-top: 84px;
   overflow: auto;
   z-index: 0;
 }
