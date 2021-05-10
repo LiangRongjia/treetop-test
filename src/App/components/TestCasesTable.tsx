@@ -1,12 +1,13 @@
+import { TestCaseT } from '../interfacesAndTypes'
 import { Table } from 'antd'
 import { CheckCircleTwoTone } from '@ant-design/icons'
 import { CloseCircleTwoTone } from '@ant-design/icons'
 
-import { TestCaseT } from './index'
 
-export default function createTable(
+export default function TestCasesTable({ data, testIt }: {
     data: TestCaseT[],
-    testIt: (key: number) => void) {
+    testIt: (key: number) => void
+}) {
 
     const columns = [{
         title: '序号',
@@ -57,7 +58,7 @@ export default function createTable(
         render: (item: TestCaseT) => (
             <button
                 className="ms-button"
-                style={{ fontSize: "12px", display:'inline-block' }}
+                style={{ fontSize: "12px", display: 'inline-block' }}
                 onClick={() => testIt(item.key)}>
                 测试
             </button>
@@ -65,11 +66,14 @@ export default function createTable(
         align: 'center' as 'center'
     }]
 
-    return <Table className="exe-test-page-table"
-        columns={columns}
-        dataSource={data}
-        pagination={{ position: ['bottomCenter'] }}
-        bordered
-        size="small"
-        scroll={{ y: 'max-content' }} />
+    return (
+        <Table
+            className="exe-test-page-table"
+            columns={columns}
+            dataSource={data}
+            pagination={{ position: ['bottomCenter'] }}
+            bordered
+            size="small"
+            scroll={{ y: 'max-content' }} />
+    )
 }

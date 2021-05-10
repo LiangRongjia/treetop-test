@@ -58,6 +58,7 @@ app.whenReady()
  * @param { BrowserWindow } mainWindow 
  */
 function ipcMainHandleEvents(mainWindow) {
+  const inputFile = `${__dirname}/data/input.txt`
   // 关闭窗口
   ipcMain.on('closeMainWindow', () => {
     mainWindow.close()
@@ -66,13 +67,36 @@ function ipcMainHandleEvents(mainWindow) {
   ipcMain.on('importExeFile', (e, fileBinaryData) => {
     fs.writeFile(`${__dirname}/data/test.exe`, Buffer.from(fileBinaryData), () => { })
   })
-  // 测试
-  ipcMain.on('runTest', async (e, cases) => {
+  // exe 测试
+  ipcMain.on('exeRunTest', async (e, cases) => {
     for (let i in cases) {
       fs.writeFileSync(`${__dirname}/data/input.txt`, cases[i].input)
       const execPromise = new Promise((resolve, reject) => {
         exec(`${__dirname}/data/test.exe<${__dirname}/data/input.txt`, (error, stdout, stderr) => {
-          mainWindow.webContents.send('testFinished', {
+          mainWindow.webContents.send('exeTestFinished', {
+            key: cases[i].key,
+            value: stdout
+          })
+          resolve()
+        })
+      })
+      await execPromise
+    }
+  })
+  const javaRunPath = `${__dirname}/data/`
+  const javaFile = `${__dirname}/data/main.java`
+  // 导入 java 文件
+  ipcMain.on('importJavaFile', (e, fileBinaryData) => {
+    fs.writeFileSync(javaFile, Buffer.from(fileBinaryData))
+    exec(`javac main.java`, { cwd: javaRunPath }, (error, stdout, stderr) => { })
+  })
+  // java 测试
+  ipcMain.on('javaRunTest', async (e, cases) => {
+    for (let i in cases) {
+      fs.writeFileSync(inputFile, cases[i].input)
+      const execPromise = new Promise((resolve, reject) => {
+        exec(`java main < input.txt`, { cwd: javaRunPath }, (error, stdout, stderr) => {
+          mainWindow.webContents.send('javaTestFinished', {
             key: cases[i].key,
             value: stdout
           })
