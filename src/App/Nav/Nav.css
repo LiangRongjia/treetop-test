@@ -19,7 +19,7 @@ nav>ul {
     padding: 4px;
     background-color: #efefef;
     border-radius: 8px;
-    box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 0 2px 0 rgba(0, 0, 0, 0.1);
     overflow: hidden;
     margin-bottom: 0;
 }
@@ -45,6 +45,18 @@ nav>ul[data-selected-index="2"]::before {
 
 nav>ul[data-selected-index="3"]::before {
     margin-left: 240px;
+}
+
+nav>ul[data-selected-index="4"]::before {
+    margin-left: 360px;
+}
+
+nav>ul[data-selected-index="5"]::before {
+    margin-left: 480px;
+}
+
+nav>ul[data-selected-index="6"]::before {
+    margin-left: 600px;
 }
 
 nav>ul>li {

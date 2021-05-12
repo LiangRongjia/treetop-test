@@ -37,6 +37,7 @@ export default function getMethods(testCases: TestCaseT[], setTestCases: React.D
      * @param e 
      */
     function testCasesFileOnChange(e: React.ChangeEvent<HTMLInputElement>) {
+        setTestCases([])
         const fileReader = new FileReader()
         fileReader.onload = (e) => {
             if (e.target?.result) {
@@ -92,6 +93,7 @@ export default function getMethods(testCases: TestCaseT[], setTestCases: React.D
         const newTestCases = Array.from(testCases)
         newTestCases.forEach(thisCase => {
             thisCase.tested = false
+            thisCase.actualOutput = ''
         })
         setTestCases(newTestCases)
         return newTestCases

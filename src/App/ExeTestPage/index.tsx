@@ -37,7 +37,7 @@ export default function ExeTestPage() {
         <input type="file" onChange={exeFileOnChange}></input>
         <div>测试用例:</div>
         <input type="file" onChange={testCasesFileOnChange}></input>
-        <button className="ms-button primary" onClick={exeTestAllCases}>测试全部</button>
+        <button className="ms-button primary" onClick={exeTestAllCases}>全部测试</button>
       </div>
       <TestCasesTable data={testCases} testIt={testIt} />
     </div>
