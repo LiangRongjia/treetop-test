@@ -15,3 +15,23 @@ export interface testCaseFileItem {
     methodType: string,
     notes: string
 }
+export type IntegrationTestCaseFileItem = {
+    url: string,
+    requestMethod: string,
+    body: Object,
+    expectOutput: Object,
+    methodType: string,
+    notes: string
+}
+export type IntegrationTestCaseT = {
+    url: string,
+    requestMethod: string,
+    body: Object,
+    expectOutput: string,
+    methodType: string,
+    notes: string,
+    key: number,
+    actualOutput: string,
+    passed: boolean,
+    tested: boolean
+}

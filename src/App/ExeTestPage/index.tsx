@@ -29,6 +29,8 @@ export default function ExeTestPage() {
     exeFileOnChange,
     exeTestAllCases
   } = getMethods(testCases, setTestCases)
+  
+  const count = countResult(testCases)
 
   return (
     <div className="exe-test-page">
@@ -37,6 +39,7 @@ export default function ExeTestPage() {
         <input type="file" onChange={exeFileOnChange}></input>
         <div>测试用例:</div>
         <input type="file" onChange={testCasesFileOnChange}></input>
+        <div>通过: {count.passed} / 未通过: {count.notPassed}</div>
         <button className="ms-button primary" onClick={exeTestAllCases}>全部测试</button>
       </div>
       <TestCasesTable data={testCases} testIt={testIt} />
@@ -83,4 +86,10 @@ async function gbk2utf8(str: string): Promise<string> {
     }
     f.readAsArrayBuffer(b)
   })
+}
+
+function countResult(cases: TestCaseT[]) {
+  const passed = cases.filter(c => c.tested && c.passed).length
+  const notPassed = cases.length - passed
+  return { passed, notPassed }
 }

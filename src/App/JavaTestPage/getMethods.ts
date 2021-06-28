@@ -26,7 +26,10 @@ export default function getMethods(testCases: TestCaseT[], setTestCases: React.D
         // 清除测试状态
         const newTestCases = JSON.parse(JSON.stringify(testCases)) as TestCaseT[]
         newTestCases.forEach(thisCase => {
-            thisCase.key === key && (thisCase.tested = false)
+            if (thisCase.key === key) {
+                thisCase.tested = false
+                thisCase.actualOutput = ''
+            }
         })
         setTestCases(newTestCases)
         // 运行测试

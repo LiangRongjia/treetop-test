@@ -5,6 +5,7 @@ import TitleBar from './TitleBar/TitleBar'
 import { useState } from 'react';
 import ExeTestPage from './ExeTestPage'
 import JavaTestPage from './JavaTestPage'
+import IntegrationTestPage from './IntegrationTestPage'
 
 const tabs = [{
   name: 'exe 测试',
@@ -15,6 +16,9 @@ const tabs = [{
 }, {
   name: 'JUnit 测试',
   component: () => <div></div>
+}, {
+  name: '集成测试',
+  component: IntegrationTestPage
 }]
 
 const getEventsHandle = ({ setCurrentTab }: { setCurrentTab: React.Dispatch<React.SetStateAction<number>> }) => {
@@ -24,11 +28,8 @@ const getEventsHandle = ({ setCurrentTab }: { setCurrentTab: React.Dispatch<Reac
 }
 
 export default function App() {
-
   const [currentTab, setCurrentTab] = useState(0)
-
   const { goToTab } = getEventsHandle({ setCurrentTab })
-
   return (
     <div className="App">
       <TitleBar />
@@ -37,7 +38,7 @@ export default function App() {
         {
           tabs.filter((tab, idx) => idx === currentTab)
             .map(tab =>
-              <tab.component />
+              <tab.component key="idx" />
             )
         }
       </div>

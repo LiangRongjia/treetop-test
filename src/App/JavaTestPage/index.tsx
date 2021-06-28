@@ -29,14 +29,17 @@ export default function JavaTestPage() {
     javaFileOnChange,
     javaTestAllCases
   } = getMethods(testCases, setTestCases)
+  
+  const count = countResult(testCases)
 
   return (
     <div className="java-test-page">
       <div className="java-test-page-control-bar">
-        <div>java 源代码:</div>
+        <div>Java 源代码:</div>
         <input type="file" onChange={javaFileOnChange}></input>
         <div>测试用例:</div>
         <input type="file" onChange={testCasesFileOnChange}></input>
+        <div>通过: {count.passed} / 未通过: {count.notPassed}</div>
         <button className="ms-button primary" onClick={javaTestAllCases}>测试全部</button>
       </div>
       <TestCasesTable data={testCases} testIt={testIt} />
@@ -81,4 +84,10 @@ async function gbk2utf8(str: string): Promise<string> {
     }
     f.readAsArrayBuffer(b)
   })
+}
+
+function countResult(cases: TestCaseT[]) {
+  const passed = cases.filter(c => c.tested && c.passed).length
+  const notPassed = cases.length - passed
+  return { passed, notPassed }
 }

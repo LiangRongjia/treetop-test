@@ -1,0 +1,21 @@
+.exe-test-page {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    overflow: auto;
+}
+
+.exe-test-page-control-bar {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    margin: 16px 0;
+}
+
+.exe-test-page-control-bar * {
+    font-size: 12px;
+    width: max-content;
+    margin: 0 12px;
+}
