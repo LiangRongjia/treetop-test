@@ -1,69 +1,106 @@
-
 import java.util.Scanner;
 
 /**
  * @Author LHGRylynn
- * @Date 2021/5/9 19:59
- * @Description 6 - Automatic Billing System.
+ * @Date 2021/5/10 8:17
+ * @Description 3 - Sale System.
  */
 public class main {
     public static void main(String[] args) {
-        double basic_charge = 25;
-        double fee_per_min = 0.15;
-
-        double phone_time;
-        int missed_payments;
 
         Scanner scan = new Scanner(System.in);
+        String input = scan.nextLine();
 
-        String record = scan.nextLine();
-        phone_time = Double.parseDouble(record.split(" ")[0]);
-        missed_payments = Integer.parseInt(record.split(" ")[1]);
-
-        if (condition(phone_time, missed_payments)) {
-            calculatedFee(phone_time, missed_payments, basic_charge, fee_per_min);
+        if (condition(input)) {
+            calculatedReward(input);
         }
     }
 
-    public static boolean condition(double phone_time, int missed_payments) {
-        if (phone_time < 0) {
-            System.out.print("phone times<0");
+    public static boolean condition(String input) {
+        int zj_max = 70;
+        int xsq_max = 80;
+        int ws_max = 90;
+
+        int min_num = 1;
+
+        int zj_num = 0;
+        int xsq_num = 0;
+        int ws_num = 0;
+
+        int ifEnd = 0;
+
+        String[] split_nextLine = input.split("\\s+");
+
+        for (String s : split_nextLine) {
+            int num1 = Integer.parseInt(s.split(",")[0]);
+            int num2 = Integer.parseInt(s.split(",")[1]);
+            int num3 = Integer.parseInt(s.split(",")[2]);
+
+            if (num1 == -1) ifEnd = 1;
+
+            if (num1 < -1 || num2 < 0 || num3 < 0) {
+                System.out.print("sales volume<0");
+                return false;
+            }
+        }
+
+        if (ifEnd == 0) {
+            System.out.print("no end with -1");
             return false;
         }
-        if (missed_payments < 0) {
-            System.out.print("number of unpaid payments<0");
+
+        for (String s : split_nextLine) {
+            if (!s.split(",")[0].equals("-1")) {
+                zj_num += Integer.parseInt(s.split(",")[0]);
+                xsq_num += Integer.parseInt(s.split(",")[1]);
+                ws_num += Integer.parseInt(s.split(",")[2]);
+            } else break;
+        }
+
+        if (zj_num < min_num || xsq_num < min_num || ws_num < min_num) {
+            System.out.print("at lease 1 complete computer");
             return false;
         }
-        if (phone_time > 44640) {
-            System.out.print("phone times over-limited");
+        if (zj_num > zj_max) {
+            System.out.print("sales volume of host over-limited");
             return false;
         }
-        if (missed_payments > 11) {
-            System.out.print("number of unpaid payments over-limited");
+        if (xsq_num > xsq_max) {
+            System.out.print("sales volume of display over-limited");
+            return false;
+        }
+        if (ws_num > ws_max) {
+            System.out.print("sales volume of peripheral over-limited");
             return false;
         }
         return true;
     }
 
-    public static void calculatedFee(double phone_time, int missed_payments, double basic_charge, double fee_per_min) {
-        double fee;
-        if (phone_time <= 60 && 0 <= phone_time && missed_payments <= 1)
-            fee = basic_charge + fee_per_min * phone_time * (1 - 0.01);
-        else if (phone_time <= 120 && 60 < phone_time && missed_payments <= 2)
-            fee = basic_charge + fee_per_min * phone_time * (1 - 0.015);
-        else if (phone_time <= 180 && 120 < phone_time && missed_payments <= 3)
-            fee = basic_charge + fee_per_min * phone_time * (1 - 0.02);
-        else if (phone_time <= 300 && 180 < phone_time && missed_payments <= 3)
-            fee = basic_charge + fee_per_min * phone_time * (1 - 0.025);
-        else if (300 < phone_time && missed_payments <= 6) fee = basic_charge + fee_per_min * phone_time * (1 - 0.03);
-        else fee = basic_charge + fee_per_min * phone_time;
+    public static void calculatedReward(String input) {
+        int zj_num = 0;
+        int xsq_num = 0;
+        int ws_num = 0;
 
-        System.out.print(String.format("%.2f", fee));
+        int zj_price = 25;
+        int xsq_price = 30;
+        int ws_price = 45;
 
+        String[] split_nextLine = input.split("\\s+");
+
+        for (String s : split_nextLine) {
+            if (!s.split(",")[0].equals("-1")) {
+                zj_num += Integer.parseInt(s.split(",")[0]);
+                xsq_num += Integer.parseInt(s.split(",")[1]);
+                ws_num += Integer.parseInt(s.split(",")[2]);
+            } else break;
+        }
+
+        int sales = zj_num * zj_price + xsq_num * xsq_price + ws_num * ws_price;
+        double reward;
+        if (sales <= 1000) reward = sales * 0.1;
+        else if (sales <= 1800) reward = sales * 0.15;
+        else reward = sales * 0.2;
+
+        System.out.print(String.format("%.2f", reward));
     }
 }
-
-
-
-
-
