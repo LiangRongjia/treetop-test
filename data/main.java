@@ -1,81 +1,69 @@
+
 import java.util.Scanner;
 
+/**
+ * @Author LHGRylynn
+ * @Date 2021/5/9 19:59
+ * @Description 6 - Automatic Billing System.
+ */
 public class main {
     public static void main(String[] args) {
-        init();
-//        triangle triangle1 = new triangle();
-//        triangle1.init();
+        double basic_charge = 25;
+        double fee_per_min = 0.15;
+
+        double phone_time;
+        int missed_payments;
+
+        Scanner scan = new Scanner(System.in);
+
+        String record = scan.nextLine();
+        phone_time = Double.parseDouble(record.split(" ")[0]);
+        missed_payments = Integer.parseInt(record.split(" ")[1]);
+
+        if (condition(phone_time, missed_payments)) {
+            calculatedFee(phone_time, missed_payments, basic_charge, fee_per_min);
+        }
     }
 
-    public static void init(){
-        Scanner scanner = new Scanner(System.in);
-//        System.out.println("Please enter the edge length of the triangle:");
-        int a = 0,b = 0,c = 0,flag = 0;
-        boolean checkA = scanner.hasNextInt();
-        if(!checkA){
-            System.out.print("Please enter a positive integer!");
-            flag++;
-        }else{
-            a = scanner.nextInt();
-            if(a<=0){
-                System.out.print("Please enter a positive integer!");
-                flag++;
-            }else if (a > 200){
-                System.out.print("The edge length cannot be greater than 200!");
-                flag++;
-            }
+    public static boolean condition(double phone_time, int missed_payments) {
+        if (phone_time < 0) {
+            System.out.print("phone times<0");
+            return false;
         }
-        if(flag==0){
-            boolean checkB = scanner.hasNextInt();
-            if(!checkB){
-                System.out.print("Please enter a positive integer!");
-                flag++;
-            }else{
-                b = scanner.nextInt();
-                if(b<=0){
-                    System.out.print("Please enter a positive integer!");
-                    flag++;
-                }else if (b > 200){
-                    System.out.print("The edge length cannot be greater than 200!");
-                    flag++;
-                }
-            }
+        if (missed_payments < 0) {
+            System.out.print("number of unpaid payments<0");
+            return false;
         }
-        if(flag==0){
-            boolean checkC = scanner.hasNextInt();
-            if(!checkC){
-                System.out.print("Please enter a positive integer!");
-                flag++;
-            }else {
-                c = scanner.nextInt();
-                if(c<=0){
-                    System.out.print("Please enter a positive integer!");
-                    flag++;
-                }else if (c > 200){
-                    System.out.print("The edge length cannot be greater than 200!");
-                    flag++;
-                }
-            }
+        if (phone_time > 44640) {
+            System.out.print("phone times over-limited");
+            return false;
         }
-        if(flag==0) {
-            getTriangeShape(a,b,c);
+        if (missed_payments > 11) {
+            System.out.print("number of unpaid payments over-limited");
+            return false;
         }
-
+        return true;
     }
 
-    public static void getTriangeShape(int a, int b, int c){
-        if((a+b<=c)||(a+c<=b)||(b+c<=a)){
-            System.out.print("This is not a triangle!");
-        }else if(a==b && b==c){
-            System.out.print("This is an equilateral triangle!");
-        }else if(a==b||b==c||a==c){
-            System.out.print("This is an iso-waist triangle!");
-        }else if(a*a==b*b+c*c || b*b==a*a+c*c || c*c==a*a+b*b){
-            System.out.print("This is a right triangle!");
-        }else if((a*a+b*b<c*c)||(a*a+c*c<b*b)||(b*b+c*c<a*a)){
-            System.out.print("This is a blunt triangle!");
-        }else{
-            System.out.print("This is a sharp triangle!");
-        }
+    public static void calculatedFee(double phone_time, int missed_payments, double basic_charge, double fee_per_min) {
+        double fee;
+        if (phone_time <= 60 && 0 <= phone_time && missed_payments <= 1)
+            fee = basic_charge + fee_per_min * phone_time * (1 - 0.01);
+        else if (phone_time <= 120 && 60 < phone_time && missed_payments <= 2)
+            fee = basic_charge + fee_per_min * phone_time * (1 - 0.015);
+        else if (phone_time <= 180 && 120 < phone_time && missed_payments <= 3)
+            fee = basic_charge + fee_per_min * phone_time * (1 - 0.02);
+        else if (phone_time <= 300 && 180 < phone_time && missed_payments <= 3)
+            fee = basic_charge + fee_per_min * phone_time * (1 - 0.025);
+        else if (300 < phone_time && missed_payments <= 6) fee = basic_charge + fee_per_min * phone_time * (1 - 0.03);
+        else fee = basic_charge + fee_per_min * phone_time;
+
+        System.out.print(String.format("%.2f", fee));
+
     }
 }
+
+
+
+
+

@@ -5,7 +5,7 @@ const { ipcMain } = require('electron')
 const exec = require('child_process').exec
 const fs = require('fs')
 
-const devMode = true
+const devMode = false
 const openDevTools = false
 
 // This method will be called when Electron has finished

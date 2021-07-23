@@ -14,29 +14,42 @@ export default function getMethods(testCases: IntegrationTestCaseT[], setTestCas
     async function runTest(cases: IntegrationTestCaseT[]) {
         const _fetch = (_case: IntegrationTestCaseT) => {
             return new Promise((resolve, reject) => {
+                const controller = new AbortController()
+                const { signal } = controller
+                setTimeout(() => {
+                    controller.abort()
+                    resolve('Timeout')
+                }, 5000)
                 if (_case.requestMethod === 'GET') {
-                    resolve(
-                        fetch(_case.url)
-                            .then(r => r.json())
-                            .catch(() => undefined)
-                    )
+                    const req = fetch(_case.url, { signal })
+                        .then(r => r.json())
+                        .catch(() => '')
+                    resolve(req)
                 }
                 if (_case.requestMethod === 'POST') {
-                    resolve(
-                        fetch(_case.url, {
-                            method: 'POST',
-                            body: _case.body as any
-                        }).then(r => r.json())
-                            .catch(() => undefined)
-                    )
+                    const req = fetch(_case.url, {
+                        method: 'POST',
+                        body: JSON.stringify(_case.body),
+                        signal,
+                        headers: new Headers({
+                            'Content-Type': "application/json"
+                        })
+                    }).then(r => r.json())
+                        .catch(() => '')
+                    resolve(req)
+                    // post(
+                    //     _case.url,
+                    //     JSON.stringify(_case.body),
+                    //     (response) => {
+                    //         resolve(JSON.parse(response))
+                    //     }
+                    // )
                 }
             })
         }
         for (let _case of cases) {
             const fetchedData = await _fetch(_case)
-            console.log(fetchedData)
             const actualOutput = fetchedData === 'Timeout' ? fetchedData : JSON.stringify(fetchedData)
-            console.log(actualOutput)
             _case.actualOutput = actualOutput
             _case.passed = _case.expectOutput === actualOutput
             _case.tested = true
@@ -118,3 +131,18 @@ export default function getMethods(testCases: IntegrationTestCaseT[], setTestCas
         testAllCases
     }
 }
+// function post(url: string, body: string, cb: (response: any) => void) {
+//     var xhr = new XMLHttpRequest();
+//     //使用HTTP POST请求与服务器交互数据
+//     xhr.open("POST", url, true);
+//     //设置发送数据的请求格式
+//     xhr.setRequestHeader('Content-type', 'application/json');
+//     xhr.onreadystatechange = () => {
+//         if (xhr.readyState === 4) {
+//             if (xhr.status === 200) {
+//                 cb(xhr.response)
+//             }
+//         }
+//     }
+//     xhr.send(body);
+// }

@@ -20,7 +20,7 @@ export default function TestCasesTable({ data, testIt }: {
         key: 'url',
         className: 'font-size-12px',
         render: (item: IntegrationTestCaseT) => (
-            <code>{item.url}</code>
+            <div className="max-height-100px"><code>{item.url}</code></div>
         )
     }, {
         title: '请求类型',
@@ -35,7 +35,7 @@ export default function TestCasesTable({ data, testIt }: {
         className: 'font-size-12px',
         render: (item: IntegrationTestCaseT) => (
             item.requestMethod === 'POST'
-                ? <code>{JSON.stringify(item.body)}</code>
+                ? <div className="max-height-100px"><code>{JSON.stringify(item.body)}</code></div>
                 : <div>none</div>
         )
     }, {
@@ -43,7 +43,7 @@ export default function TestCasesTable({ data, testIt }: {
         key: 'expectOutput',
         className: 'font-size-12px',
         render: (item: IntegrationTestCaseT) => (
-            <code>{item.expectOutput}</code>
+            <div className="max-height-100px"><code>{item.expectOutput}</code></div>
         )
     }, {
         title: '实际输出',
@@ -51,7 +51,7 @@ export default function TestCasesTable({ data, testIt }: {
         className: 'font-size-12px',
         render: (item: IntegrationTestCaseT) => (
             item.actualOutput !== ''
-                ? <code>{item.actualOutput}</code>
+                ? <div className="max-height-100px"><code>{item.actualOutput}</code></div>
                 : <div></div>
         )
     }, {
@@ -99,6 +99,7 @@ export default function TestCasesTable({ data, testIt }: {
             dataSource={data}
             pagination={false}
             bordered
+            tableLayout='fixed'
             size="small"
             sticky />
     )
